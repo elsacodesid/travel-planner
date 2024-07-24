@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { SelectBudgetOptions } from "@/constants/options";
+import { SelectBudgetOptions, SelectTravelerList } from "@/constants/options";
 import React, { useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
@@ -35,17 +36,43 @@ function CreateTrip() {
           </div>
           <div>
             <h2 className="tex-xl my-3 font-medium">What is your budget?</h2>
-            <h2>The budget is exclusively allocated for activities and dining purposes.</h2>
+            <h2>
+              The budget is exclusively allocated for activities and dining
+              purposes.
+            </h2>
           </div>
           <div className="grid grid-cols-2 gap-5 mt-5">
-{SelectBudgetOptions.map((item, index) => (
-  <div key={index} className="p-4 border rounded-lg hover:shadow- cursor-pointer">
-<h2 className="text-4xl">{item.icon}</h2>
-<h2 className="font-bold text-xl">{item.title}</h2>
-<h2 className="text-sm text-gray-600">{item.desc}</h2>
-  </div>
-))}
+            {SelectBudgetOptions.map((item, index) => (
+              <div
+                key={index}
+                className="p-4 border rounded-lg hover:shadow- cursor-pointer"
+              >
+                <h2 className="text-4xl">{item.icon}</h2>
+                <h2 className="font-bold text-xl">{item.title}</h2>
+                <h2 className="text-sm text-gray-600">{item.desc}</h2>
+              </div>
+            ))}
           </div>
+          <div>
+            <h2 className="tex-xl my-3 font-medium">Who are you planning to travel with?</h2>
+            <h2>
+             Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-5 mt-5">
+            {SelectTravelerList.map((item, index) => (
+              <div
+                key={index}
+                className="p-4 border rounded-lg hover:shadow- cursor-pointer"
+              >
+                <h2 className="text-4xl">{item.icon}</h2>
+                <h2 className="font-bold text-xl">{item.title}</h2>
+                <h2 className="text-sm text-gray-600">{item.desc}</h2>
+              </div>
+            ))}
+          </div>
+          <div className="my-10 justify-end flex"><Button>Generate Trip</Button></div>
+         
         </div>
       </div>
     </div>
