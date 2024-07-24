@@ -8,6 +8,7 @@ function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
   const handleInputChange = (name, value) => {
+   
     setFormData({
       ...formData,
       [name]: value,
@@ -17,6 +18,15 @@ function CreateTrip() {
   useEffect(() => {
     console.log(formData);
   }, [formData]);
+
+  const OnGenerateTrip = () => {
+    if(formData?.NumberOfDays > 5) {
+      console.log("Number of days must be less than 6")
+      return
+    }
+
+    console.log(formData)
+  }
   return (
     <div className="sm:pdx-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
       <h2 className="font-bold text-3xl">Tell us your travel preferences</h2>
@@ -43,7 +53,7 @@ function CreateTrip() {
             <h2 className="tex-xl my-3 font-medium">
               How many days are you planning your trip?
             </h2>
-            <Input placeholder={"Eg. 3"} type="number" onChange={(e) => handleInputChange("numberOfDays", e.target.value)} />
+            <Input placeholder={"Eg. 3"} type="number" onChange={(e) => handleInputChange("NumberOfDays", e.target.value)} />
           </div>
           <div>
             <h2 className="tex-xl my-3 font-medium">What is your budget?</h2>
@@ -85,7 +95,7 @@ function CreateTrip() {
             ))}
           </div>
           <div className="my-10 justify-end flex">
-            <Button>Generate Trip</Button>
+            <Button onClick={OnGenerateTrip}>Generate Trip</Button>
           </div>
         </div>
       </div>

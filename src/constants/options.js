@@ -28,7 +28,7 @@ export const SelectTravelerList = [
         people: "5 - 10 People"
     }
 ];
-
+ 
 
 export const SelectBudgetOptions = [
     {
