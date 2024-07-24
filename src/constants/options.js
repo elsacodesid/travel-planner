@@ -30,3 +30,30 @@ export const SelectTravelerList = [
 
 
 ]
+
+export const SelectBudgetOptions = [
+    {
+        id: 1,
+        title: "Economy",
+        desc: "Stay conscious of costs",
+        icon: "💸"
+    },
+    {
+        id: 2,
+        title: "Standard",
+        desc: "Balance comfort and affordability",
+        icon: "💰"
+    },
+    {
+        id: 3,
+        title: "Premium",
+        desc: "Enjoy extra comfort and services",
+        icon: "💳"
+    },
+    {
+        id: 4,
+        title: "Luxury",
+        desc: "Indulge in top-notch amenities",
+        icon: "🏆"
+    }
+];
