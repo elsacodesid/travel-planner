@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { SelectBudgetOptions, SelectTravelerList } from "@/constants/options";
+import { toast } from "@/components/ui/use-toast";
+import { AI_PROMPT, SelectBudgetOptions, SelectTravelerList } from "@/constants/options";
 import React, { useEffect, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { chatSession } from "@/service/AIModel";
 
 function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
   const handleInputChange = (name, value) => {
-   
     setFormData({
       ...formData,
       [name]: value,
@@ -19,14 +19,33 @@ function CreateTrip() {
     console.log(formData);
   }, [formData]);
 
-  const OnGenerateTrip = () => {
-    if(formData?.NumberOfDays > 5) {
-      console.log("Number of days must be less than 6")
-      return
+  const OnGenerateTrip = async () => {
+    if (
+      (!formData?.numberOfDays && !formData?.location) ||
+      !formData?.budget ||
+      !formData?.numberOfDays ||
+      !formData?.numberOfTravelers
+    ) {
+      toast({
+        title: "Error:",
+        description: "Please fill all details.",
+      });
+      return;
     }
 
-    console.log(formData)
-  }
+    const FINAL_PROMPT = AI_PROMPT
+    .replace("{location}", formData.location?.label)
+    .replace("{totalDays}", formData.numberOfDays)
+    .replace("{numberOfTravelers}", formData.numberOfTravelers)
+    .replace("{budget}", formData.budget)
+
+    console.log(FINAL_PROMPT)
+
+    const result = await chatSession.sendMessage(FINAL_PROMPT)
+
+    console.log(result?.response?.text())
+    
+  };
   return (
     <div className="sm:pdx-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
       <h2 className="font-bold text-3xl">Tell us your travel preferences</h2>
@@ -51,9 +70,24 @@ function CreateTrip() {
 
           <div>
             <h2 className="tex-xl my-3 font-medium">
-              How many days are you planning your trip?
+              How many days are you planning your trip? (No more than 5 days)
             </h2>
-            <Input placeholder={"Eg. 3"} type="number" onChange={(e) => handleInputChange("NumberOfDays", e.target.value)} />
+            <select
+              onChange={(e) =>
+                handleInputChange("numberOfDays", e.target.value)
+              }
+              className="p-2 border rounded-lg"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select number of days
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
           </div>
           <div>
             <h2 className="tex-xl my-3 font-medium">What is your budget?</h2>
@@ -66,13 +100,15 @@ function CreateTrip() {
             {SelectBudgetOptions.map((item, index) => (
               <div
                 key={index}
-                className={`p-4 border rounded-lg hover:border-blue-300 cursor-pointer ${formData?.budget==item.title&&"bg-green-100"}`}
-              onClick={() => handleInputChange("budget", item.title)}
+                className={`p-4 border rounded-lg hover:border-blue-300 cursor-pointer ${
+                  formData?.budget == item.title && "bg-green-100"
+                }`}
+                onClick={() => handleInputChange("budget", item.title)}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
                 <h2 className="font-bold text-xl">{item.title}</h2>
                 <h2 className="text-sm text-gray-600">{item.desc}</h2>
-              </div> 
+              </div>
             ))}
           </div>
           <div>
@@ -85,8 +121,12 @@ function CreateTrip() {
             {SelectTravelerList.map((item, index) => (
               <div
                 key={index}
-                className={`p-4 border rounded-lg hover:border-blue-300 cursor-pointer ${formData?.NumberOfTravelers==item.people&&"bg-green-100"}`}
-                onClick={() => handleInputChange("NumberOfTravelers", item.people)}
+                className={`p-4 border rounded-lg hover:border-blue-300 cursor-pointer ${
+                  formData?.numberOfTravelers == item.people && "bg-green-100"
+                }`}
+                onClick={() =>
+                  handleInputChange("numberOfTravelers", item.people)
+                }
               >
                 <h2 className="text-4xl">{item.icon}</h2>
                 <h2 className="font-bold text-xl">{item.title}</h2>
