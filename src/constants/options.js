@@ -24,7 +24,7 @@ export const SelectTravelerList = [
         id: 4,
         title: "Friends",
         desc: "A bunch of thrill-seekers",
-        icon: "🚌 🍃",
+        icon: "🚌 💨",
         people: "5 - 10 People"
     }
 ];

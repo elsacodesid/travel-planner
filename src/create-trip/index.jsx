@@ -56,13 +56,13 @@ function CreateTrip() {
             {SelectBudgetOptions.map((item, index) => (
               <div
                 key={index}
-                className="p-4 border rounded-lg hover:shadow- cursor-pointer"
+                className={`p-4 border rounded-lg hover:border-blue-300 cursor-pointer ${formData?.budget==item.title&&"bg-green-100"}`}
               onClick={() => handleInputChange("budget", item.title)}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
                 <h2 className="font-bold text-xl">{item.title}</h2>
                 <h2 className="text-sm text-gray-600">{item.desc}</h2>
-              </div>
+              </div> 
             ))}
           </div>
           <div>
@@ -75,7 +75,7 @@ function CreateTrip() {
             {SelectTravelerList.map((item, index) => (
               <div
                 key={index}
-                className="p-4 border rounded-lg hover:shadow- cursor-pointer"
+                className={`p-4 border rounded-lg hover:border-blue-300 cursor-pointer ${formData?.NumberOfTravelers==item.people&&"bg-green-100"}`}
                 onClick={() => handleInputChange("NumberOfTravelers", item.people)}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
