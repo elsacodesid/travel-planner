@@ -86,7 +86,11 @@ function CreateTrip() {
           },
         }
       )
-      .then((resp) => console.log(resp));
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setOpenDialog(false)
+        OnGenerateTrip();
+      });
   };
   return (
     <div className="sm:pdx-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
