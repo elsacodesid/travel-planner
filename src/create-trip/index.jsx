@@ -4,10 +4,31 @@ import { AI_PROMPT, SelectBudgetOptions, SelectTravelerList } from "@/constants/
 import React, { useEffect, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { chatSession } from "@/service/AIModel";
+import { FcGoogle } from "react-icons/fc";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { useGoogleLogin } from "@react-oauth/google";
+
+
 
 function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const handleLogin = useGoogleLogin({
+    onSuccess:(codeResp) => console.log(codeResp),
+    onError: (error) => console.log(error)
+  })
+
+  
+
   const handleInputChange = (name, value) => {
     setFormData({
       ...formData,
@@ -20,6 +41,11 @@ function CreateTrip() {
   }, [formData]);
 
   const OnGenerateTrip = async () => {
+    const user = localStorage.getItem("user")
+
+    if(!user) {
+      setOpenDialog(true)
+    }
     if (
       (!formData?.numberOfDays && !formData?.location) ||
       !formData?.budget ||
@@ -137,6 +163,22 @@ function CreateTrip() {
           <div className="my-10 justify-end flex">
             <Button onClick={OnGenerateTrip}>Generate Trip</Button>
           </div>
+          <Dialog open={openDialog}>
+
+  <DialogContent>
+    <DialogHeader>
+
+      <DialogDescription>
+    <img src="/vite.svg" />
+    <h2 className="font-bold text-lg mt-7">Sign In with Google</h2>
+    <p>Sign in to the app With Google Authentication securely</p>
+    <Button onClick={handleLogin} className="w-full mt-5 flex gap-4"><FcGoogle  className="h-6 w-6" />
+    Sign In With Google</Button>
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
+
         </div>
       </div>
     </div>
