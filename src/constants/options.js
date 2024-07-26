@@ -57,4 +57,4 @@ export const SelectBudgetOptions = [
     }
 ];
 
-export const AI_PROMPT = "Generate in valid JSON format for Firebase (No nested data!): A Travel Plan for {location}, for {totalDays} days for {numberOfTravelers} with {budget} budget. Give me a Hotels options list with Hotel Name, Hotel address, Price, hotel imageUrl, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket pricing, Time of travel each of the location for {totalDays} days with each day plan with best time to visit."
+export const AI_PROMPT = "Generate in valid JSON format for Firebase (No nested data!): A Travel Plan for {location}, for {totalDays} days for {numberOfTravelers} with {budget} budget. Give me a Hotels options list with Hotel Name, Hotel address, Price, hotel imageUrl, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket pricing, Time of travel each of the location for {totalDays} days with detailed each day plan (day 1, day 2, etc) which also doesn't contain nested data."

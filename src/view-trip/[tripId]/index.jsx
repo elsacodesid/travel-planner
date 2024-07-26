@@ -1,5 +1,6 @@
 import Hotels from "@/components/Hotels";
 import InfoSection from "@/components/InfoSection";
+import PlacesToVisit from "@/components/PlacesToVisit";
 import { toast } from "@/components/ui/use-toast";
 import { db } from "@/service/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
@@ -42,6 +43,7 @@ function ViewTrip() {
     <Hotels trip={trip}/>
 
     {/* Itinerary */}
+    <PlacesToVisit trip={trip} />
     
     {/* Footer */}
     </div>;
